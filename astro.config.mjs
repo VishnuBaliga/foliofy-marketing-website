@@ -12,4 +12,5 @@ export default defineConfig({
     format: "file",
   },
   outDir: "landing-page",
+  compressHTML: true,
 });

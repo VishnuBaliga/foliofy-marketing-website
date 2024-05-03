@@ -21,7 +21,7 @@ jobs:
           npm install
           npm run build
           mkdir bin
-          zip bin/deploy.zip appspec.yml pre.sh -r landing-page
+          zip bin/deploy.zip appspec.yml pre.sh setup.sh -r landing-page
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
