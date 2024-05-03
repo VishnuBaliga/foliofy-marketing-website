@@ -1,5 +1,5 @@
 # build output
-dist/
+landing-page/
 .output/
 .astro
 
