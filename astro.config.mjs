@@ -5,6 +5,10 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astroship.web3templates.com",
+  site: "https://foliofy.me",
   integrations: [tailwind(), mdx(), sitemap()],
+  output: "static",
+  build: {
+    format: "file",
+  },
 });
