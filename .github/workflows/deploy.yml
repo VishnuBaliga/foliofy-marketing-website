@@ -16,25 +16,17 @@ jobs:
         with:
           node-version: 18
 
-      - name: Build & Zip the Files
+      - name: Build Project
         run: |
           npm install
           npm run build
-          mkdir bin
-          zip bin/deploy.zip appspec.yml pre.sh setup.sh -r landing-page
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: Store binary in S3 bucket
-        run: aws s3 sync ./bin/ s3://${{ secrets.BUCKET_NAME }}/landing-page --delete
-      - name: Create CodeDeploy Deployment
-        id: deploy
+      - name: Store files in S3 bucket
         run: |
-          aws deploy create-deployment \
-            --application-name LandingPage \
-            --deployment-group-name DevelopmentGroup \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --s3-location bucket=${{ secrets.BUCKET_NAME }},key=landing-page/deploy.zip,bundleType=zip
+          aws s3 rm s3://${{ secrets.BUCKET_NAME }} --recursive
+          aws s3 cp landing-page s3://${{ secrets.BUCKET_NAME }} --recursive
