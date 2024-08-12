@@ -30,3 +30,4 @@ jobs:
         run: |
           aws s3 rm s3://${{ secrets.BUCKET_NAME }} --recursive
           aws s3 cp landing-page s3://${{ secrets.BUCKET_NAME }} --recursive
+          aws cloudfront create-invalidation --distribution-id EXASU7NSIWGQ6 --paths "/*"
